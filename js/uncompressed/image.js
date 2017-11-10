@@ -43,7 +43,7 @@ cause.image = (function () {
 
 	/** Show help when is cause.help('image') is call
 	 */
-	this.help = function () {
+	var help = function () {
 		cause.log('Aide pour "cause.image":', 'help_title');
 		cause.log("\t" +
 			'cause.image.toDataUrl(url, callback) = Convert image to dataurl', 'help');
@@ -54,11 +54,16 @@ cause.image = (function () {
 	 * @param {string} url - URL of image
 	 * @param {function} callback - function to execute when convert is finish
 	 */
-	this.toDataUrl = function (url, callback) {
+	var toDataUrl = function (url, callback) {
 		if (typeof(FileReader) == 'function') {
             toDataUrlFromFileReader(url, callback);
 		} else {
             toDataUrlFromCanvas(url, callback);
 		}
 	};
-})();
+
+	return function() {
+	    this.help = help;
+	    this.toDataUrl = toDataUrl;
+    };
+}());

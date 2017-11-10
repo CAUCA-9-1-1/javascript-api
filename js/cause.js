@@ -137,7 +137,7 @@ var cause = {
 	 */
 	needUpdate: function () {
 		if (!cause.helpIsOn) {
-			location.href = location.protocol + cause.baseUrl + '/html/browser.html';
+			location.href = location.protocol + cause.baseUrl + 'html/browser.html';
         }
 	}
 };/** Check if script src look to had jQuery.
@@ -1622,25 +1622,30 @@ cause.image = (function () {
 
 	/** Show help when is cause.help('image') is call
 	 */
-	this.help = function () {
+	var help = function () {
 		cause.log('Aide pour "cause.image":', 'help_title');
 		cause.log("\t" +
 			'cause.image.toDataUrl(url, callback) = Convert image to dataurl', 'help');
-	},
+	};
 
 	/** Convert an image to a dataurl.
 	 *
 	 * @param {string} url - URL of image
 	 * @param {function} callback - function to execute when convert is finish
 	 */
-	this.toDataUrl = function (url, callback) {
+	var toDataUrl = function (url, callback) {
 		if (typeof(FileReader) == 'function') {
             toDataUrlFromFileReader(url, callback);
 		} else {
             toDataUrlFromCanvas(url, callback);
 		}
-	}
-})();
+	};
+
+	return function() {
+	    this.help = help;
+	    this.toDataUrl = toDataUrl;
+    };
+}());
 /** Class for helping with including file
  *
  * @constructor

@@ -137,7 +137,7 @@ var cause = {
 	 */
 	needUpdate: function () {
 		if (!cause.helpIsOn) {
-			location.href = location.protocol + cause.baseUrl + '/html/browser.html';
+			location.href = location.protocol + cause.baseUrl + 'html/browser.html';
         }
 	}
 };

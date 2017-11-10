@@ -5,12 +5,12 @@
 
 # Compress all javascript file in one
 
-cat ./js/uncompressed/*.js > ./cause/js/cause.js
-cat ./js/uncompressed/client/*.js >> ./cause/js/cause.js
-cat ./js/uncompressed/devExtreme/*.js >> ./cause/js/cause.js
-cat ./js/uncompressed/externalPlugins/*.js >> ./cause/js/cause.js
-cat ./js/uncompressed/localization/*.js >> ./cause/js/cause.js
-cat ./js/uncompressed/viewer/*.js >> ./cause/js/cause.js
+cat ./js/uncompressed/*.js > ./js/cause.js
+cat ./js/uncompressed/client/*.js >> ./js/cause.js
+cat ./js/uncompressed/devExtreme/*.js >> ./js/cause.js
+cat ./js/uncompressed/externalPlugins/*.js >> ./js/cause.js
+cat ./js/uncompressed/localization/*.js >> ./js/cause.js
+cat ./js/uncompressed/viewer/*.js >> ./js/cause.js
 
 # Uglify the compressed file
 cat ./js/cause.js | uglifyjs -o ./js/cause.min.js
