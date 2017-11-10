@@ -1,0 +1,21 @@
+CACHE MANIFEST
+# date: 2016-08-22
+# version: 0.1.1
+
+../css/generic.cause.css
+../css/generic.light.custom.css
+../images/favicon.png
+../images/logo.png
+../js/cause.min.js
+browser.html
+index.html
+offline.html
+style.css
+
+# If nothing in cache and no network
+FALLBACK:
+/ /cause/html/offline.html
+
+# Use from network if available
+NETWORK:
+*

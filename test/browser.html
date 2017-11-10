@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="../images/favicon.png"/>
+    <link rel="apple-touch-icon" href="../images/logo.png"/>
+    <title>CAUSE.js - navigateur</title>
+    <script type="text/javascript" src="../cause/js/cause.js"></script>
+</head>
+<body>
+    <div id="info" style="margin: 0 auto;width:500px;"></div>
+    <script>
+        cause.$(document).ready((function () {
+            var html = '';
+
+            html += 'User Agent : <b>' + navigator.userAgent + '</b><br /><br />';
+
+            html += 'Browser : <b>' + (cause.browser.chrome ? 'Chrome' :
+                                    (cause.browser.edge ? 'Edge' :
+                                    (cause.browser.firefox ? 'Firefox' :
+                                    (cause.browser.safari ? 'Safari' :
+                                    (cause.browser.opera ? 'Opera' :
+                                    (cause.browser.vivaldi ? 'Vivaldi' :
+                                    (cause.browser.msie ? 'MSIE' : 'Unknown'))))))) + '</b><br />';
+            html += 'Version : <b>' + cause.browser.version + '</b><br /><br />';
+
+            html += 'Engine : <b>' + (cause.browser.blink ? 'Blink' :
+                                    (cause.browser.edgeHtml ? 'Edge HTML' :
+                                    (cause.browser.gecko ? 'Gecko' :
+                                    (cause.browser.webkit ? 'Webkit' :
+                                    (cause.browser.presto ? 'Presto' :
+                                    (cause.browser.trident ? 'Trident' : 'Unknown')))))) + '</b><br />';
+            html += 'Version : <b>' + cause.browser.engineVersion + '</b><br /><br />';
+
+            html += 'OS : <b>' + (cause.os.android ? 'Android' :
+                                (cause.os.beOS ? 'BeOS' :
+                                (cause.os.blackberry ? 'BlackBerry' :
+                                (cause.os.chromeOS ? 'Chrome OS' :
+                                (cause.os.iOS ? 'iOS' :
+                                (cause.os.linux ? 'Linux' :
+                                (cause.os.maxOS ? 'Mac OS' :
+                                (cause.os.openBSD ? 'Open BSD' :
+                                (cause.os.os2 ? 'OS 2' :
+                                (cause.os.qnx ? 'QNX' :
+                                (cause.os.sunOS ? 'Sun OS' :
+                                (cause.os.unix ? 'Unix' :
+                                (cause.os.Windows ? 'Windows' : 'Unknown'))))))))))))) + '</b><br />';
+            html += 'Version : <b>' + cause.os.version + '</b><br /><br />';
+
+            cause.$('#info').html(html);
+        }).bind(this));
+    </script>
+    <noscript>
+        <h1>Le javascript doit être actif sur votre navigateur!</h1>
+        <h1>Javascript must be enabled in your browser!</h1>
+    </noscript>
+</body>
+</html>

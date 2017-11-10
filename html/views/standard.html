@@ -1,0 +1,125 @@
+<div data-options="dxView: {name: 'standard', title: 'Standard JavaScript'}">
+    <div data-options="dxContent: {targetPlaceholder: 'content'}">
+        <div class="module">
+            <h4>Fichiers</h4>
+            Chaque fichier correspond à une classe ou une page
+        </div>
+        <div class="module">
+            <h4>Commentaires</h4>
+            Chaque classe et fonction doit contenir un commentaire pour expliquer sont fonctionnement<br />
+            La documentation est générer à l'aide de <a href="http://usejsdoc.org/">JsDoc</a>
+            <code><pre>
+                /** Explication
+                 *
+                &nbsp;* @param {string} maVar - Description de la variable
+                &nbsp;* @returns {string} Description du retour
+                &nbsp;*/
+            </pre></code>
+        </div>
+        <div class="module">
+            <h4>Noms de variable</h4>
+            Un nom de variable ou de fonction devrait toujours débuter par une lettre minuscule et chaque mot concaténé avec une majuscule.
+            <code><pre>
+                var maVar = '';
+            </pre></code>
+        </div>
+        <div class="module">
+            <h4>"object" vs "singleton" vs "prototype" vs "class"</h4>
+            <ul>
+                <li>
+                    Il est possible de créer un objet seulement en utilisant les "{}".<br />
+                    Cette façon ne permet pas d'exécuter du code à la création de l'object.<br />
+                    <code><pre>
+                        var rect = {
+                            width: 2,
+                            height: 5,
+                            area: function() {
+                                return this.width * this.height;
+                            }
+                        };
+                    </pre></code>
+                </li><li>
+                    Il est aussi possible d'ajouter des membres (propriétés/méthodes) à l'object généré directement dans une fonction.<br />
+                    Cette façon de faire est comparable au "singleton" et ne devrait pas être utilisé si la fonction doit être appelé plus d'une fois.
+                    <code><pre>
+                        var rect = function (width, height) {
+                            this.width = width;
+                            this.height = height;
+                            this.area = function() {
+                                return this.width * this.height;
+                            }
+                        };
+                        var myRect = new rect(2, 5);
+                    </pre></code>
+                </li><li>
+                    Il est aussi possible d'ajouter des membres (propriétés/méthodes) à l'object généré à partir du "prototype".<br />
+                    Cette façon de faire est comparable au "class".
+                    <code><pre>
+                        var rect = function (width, height) {
+                            this.width = width;
+                            this.height = height;
+                        };
+                        rect.protoype.area = function() {
+                            return this.width * this.height;
+                        };
+                        var myRect = new rect(2, 5);
+                    </pre></code>
+                </li><li>
+                    Éventuellement, une classe va pouvoir être utiliser de façon standard.<br />
+                    Par contre, cette façon de faire n'est pas encore fonctionnel sur tout les navigateurs.
+                    <span class="comment">Octobre 2016</span>
+                </li>
+            </ul>
+        </div>
+        <div class="module">
+            <h4>Règles</h4>
+            <ul>
+                <li>
+                    Utiliser principalement les guillemets simple pour les chaînes
+                    <code><pre>
+                        console.log('hello there');
+                    </pre></code>
+                </li>
+                <li>
+                    Ajouter une espace après les mot clés (function, if, for, etc.)
+                    <code><pre>
+                        if (condition) { ... }
+                        function name (arg) { ... }
+                    </pre></code>
+                </li>
+                <li>
+                    Ajouter un espace de chaque côté d'un opérateur
+                    <code><pre>
+                        var x = 2;
+                        var message = 'hello, ' + name + '!';
+                    </pre></code>
+                </li>
+                <li>
+                    Ajouter un espace après chaque virgule
+                    <code><pre>
+                        var list = [1, 2, 3, 4];
+                        function greet (name, options) { ... }
+                    </pre></code>
+                </li>
+                <li>
+                    Garder les braquettes sur la même ligne<br />
+                    Toujours utiliser les braquettes pour définir le "if"
+                    <code><pre>
+                        if (condition) {
+                         &nbsp; // ...
+                        } else {
+                        &nbsp; &nbsp;// ...
+                        }
+                    </pre></code>
+                </li>
+                <li>
+                    Déclarer chaque variable individuellement
+                    <code><pre>
+                        var silent = true;
+                        var verbose = true;
+                    </pre></code>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

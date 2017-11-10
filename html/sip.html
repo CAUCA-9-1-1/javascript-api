@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" href="../images/favicon.png"/>
+		<title>CAUSE.js - Test pour SIP</title>
+		<script type="text/javascript" src="../js/cause.min.js"></script>
+		<script type="text/javascript" src="/plugins/SIP.js/sip-0.7.5.min.js"></script>
+	</head>
+	<body>
+		<script>
+			var config = {
+		  		// Replace this IP address with your FreeSWITCH IP address
+		  		uri: '1411@localhost',
+
+		  		// Replace this IP address with your FreeSWITCH IP address and replace the port with your FreeSWITCH port
+		  		ws_servers: 'ws://localhost:8021',
+
+		  		// FreeSWITCH Default Username
+		  		authorizationUser: '1411',
+
+		  		// FreeSWITCH Default Password
+		  		password: 'aem4Eethae'
+			};
+
+			var ua = new SIP.UA(config);
+		</script>
+		<noscript>
+			<h1>Le javascript doit être active sur votre navigateur!</h1>
+			<h1>Javascript must be enabled in your browser!</h1>
+		</noscript>
+	</body>
+</html>

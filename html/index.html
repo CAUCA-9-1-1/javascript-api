@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="../images/favicon.png"/>
+		<link rel="apple-touch-icon" href="../images/logo.png"/>
+		<title>CAUSE.js - documentation</title>
+		<script type="text/javascript" src="../js/cause.js"></script>
+	</head>
+	<body>
+		<div class="hide">
+			<div id="errorMessage"></div>
+		</div>
+		<script>
+			cause.on('load', function() {
+				cause.loadAPP([
+					'style.css',
+					'js/app.js',
+					'js/home.js',
+					'js/docs.js',
+					'js/test.js',
+					'js/devtools.js',
+					'js/standard.js',
+					'js/function.js',
+					'views/home.html',
+					'views/docs.html',
+					'views/test.html',
+					'views/devtools.html',
+					'views/standard.html',
+					'views/function.html'
+				]);
+			});
+		</script>
+		<noscript>
+			<h1>Le javascript doit être actif sur votre navigateur!</h1>
+			<h1>Javascript must be enabled in your browser!</h1>
+		</noscript>
+	</body>
+</html>

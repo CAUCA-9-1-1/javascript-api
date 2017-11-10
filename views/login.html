@@ -1,0 +1,17 @@
+<div data-options="dxView: {name: 'login', title: cause.localize('login')}">
+	<div data-options="dxContent : { targetPlaceholder: 'content' } ">
+		<br />
+		<form method="POST" data-bind="attr: {action: selectAction()}">
+			<div class="dx-texteditor-container">
+				<input class="dx-texteditor-input" data-bind="attr: {placeholder: cause.localize('username')}" type="text" name="user" />
+			</div>
+			<div class="dx-texteditor-container">
+				<input class="dx-texteditor-input" data-bind="attr: {placeholder: cause.localize('password')}" type="password" name="password" />
+			</div>
+			<br />
+			<input type="submit" name="Entrer" data-bind="attr: {value: cause.localize('login')}" />
+		</form>
+		<br />
+		<div class="error" data-bind="text: msgLogin"></div>
+	</div>
+</div>

@@ -1,0 +1,137 @@
+<div data-options="dxView: {name: 'docs', title: 'Documentation pour la librarie'}">
+    <div data-options="dxContent : { targetPlaceholder: 'content' } ">
+        <div class="module">
+            <h4>complète</h4>
+            La documentation complète ce trouve <a href="../docs/cause.html">ici</a>
+        </div>
+        <div class="module">
+            <h4>générale</h4>
+            Pour avoir de l'aide rapide pour un module/class vous pouvez utiliser la fonction suivante:
+            <br /><br />
+            cause : <a onclick="cause.help();">cause.help()</a><br />
+            pour un module : <a onclick="cause.help('socket');">cause.help('socket')</a><br />
+        </div>
+        <div class="module">
+            <h4>principe à venir</h4>
+            <ul>
+                <li>
+                    <h5>class</h5>
+                    Il est maintenant possible de déclarer des classes en javascript.<br />
+                    <code><pre>
+                        class Spelunking extends EXPERIENCE.Outdoor {
+                        &nbsp; &nbsp;constructor(name, location) {
+                        &nbsp; &nbsp; &nbsp; &nbsp;super(name, location);
+                        &nbsp; &nbsp; &nbsp; &nbsp;this.minSkill = Spelunking.defaultSkill();
+                        &nbsp; &nbsp; &nbsp; &nbsp;// ...
+                        &nbsp; &nbsp;}
+                        &nbsp; &nbsp;update(minSkill) {
+                        &nbsp; &nbsp; &nbsp; &nbsp;// ...
+                        &nbsp; &nbsp; &nbsp; &nbsp;super.update(minSkill);
+                        &nbsp; &nbsp;}
+                        &nbsp; &nbsp; &nbsp; &nbsp;static defaultSkill() {
+                        &nbsp; &nbsp; &nbsp; &nbsp;return new EXPERIENCE.Level3();
+                        &nbsp; &nbsp;}
+                        }
+                    </pre></code>
+                    Par contre, cette façon de faire n'est pas encore supporté dans tout les navigateurs, principalement sous "Microsoft Edge".
+                    <span class="comment">Octobre 2016</span><br /><br />
+                </li><li>
+                    <h5>rest parameters</h5>
+                    Permet de convertir une série de paramètre en un array<br />
+                    <code><pre>
+                        function f(x, ...y) {
+                        &nbsp; &nbsp;// y is an array.
+                        &nbsp; &nbsp;return x * y.length;
+                        }
+                        console.log(f(3, "hello", true));
+                        // Output: 6
+                    </pre></code>
+                    Par contre, cette façon de faire n'est pas encore supporté dans tout les navigateurs, principalement sous "Safari".
+                    <span class="comment">Octobre 2016</span><br /><br />
+                </li><li>
+                    <h5>promise</h5>
+                    Devrait normalement simplifié les appels asynchrone. Mais pour l'instant, je ne suis pas certain que c'est vraiment le cas!
+                    <span class="comment">Octobre 2016</span><br /><br />
+                </li><li>
+                    <h5>proxy</h5>
+                    Permet d'ajouter des fonctionnalités sur le GET et SET d'une propriété d'object.
+                    <code><pre>
+                        let target = {
+                            foo: "Welcome, foo"
+                        };
+                        let proxy = new Proxy(target, {
+                            get (receiver, name) {
+                                return name in receiver ? receiver[name] : `Hello, ${name}`;
+                            }
+                        });
+                        proxy.foo === "Welcome, foo";
+                        proxy.world === "Hello, world";
+                    </pre></code>
+                    Intégrer dans tout les navigateur principal. (safari à la version 10 seulement).
+                    <span class="comment">Octobre 2016</span><br /><br />
+                </li><li>
+                    <h5>Symbol</h5>
+                    Les "Symbol" ont été ajouté pour permettre de rendre les propriétés d'une classe privée.<br />
+                    Par contre, ce n'est pas complétement vrai.<br />
+                    Pour créer un membre privé, un peut utiliser un variable locale. Ce qui fonction tant que notre scope ne change pas.
+                    <code><pre>
+                        var Pet = function (type) {
+                            this.getType = function () {
+                                return type;
+                            };
+                        };
+
+                        var b = new Pet('dog');
+                        console.log(b.getType()); //dog
+                        b.type = null;
+                        // Stays private
+                        console.log(b.getType()); //dog
+                    </pre></code>
+                    Les "Symbol" permettre de créer une proprité qui n'est pas visible dans l'objet.
+                    <code><pre>
+                        var Pet = (function () {
+                            var typeSymbol = Symbol('type');
+
+                            function Pet(type) {
+                                this[typeSymbol] = type;
+                            };
+                            Pet.prototype.getType = function () {
+                                return this[typeSymbol];
+                            };
+
+                            return Pet;
+                        }());
+
+                        var a = new Pet('dog');
+                        console.log(a.getType()); //Output: dog
+                        a.type = null;
+                        // Stays private
+                        console.log(a.getType()); //Output: dog
+                    </pre></code>
+                </li><li>
+                    <h5>template strings</h5>
+                    Permet de convertir une série de paramètre en un array<br />
+                    <code><pre>
+                        function partOfDay () {
+                        &nbsp; &nbsp;var hours = new Date().getHours();
+                        &nbsp; &nbsp;if (hours <= 12) {
+                        &nbsp; &nbsp; &nbsp; &nbsp;return "morning";
+                        &nbsp; &nbsp;} else if (hours <= 5) {
+                        &nbsp; &nbsp; &nbsp; &nbsp;return "afternoon";
+                        &nbsp; &nbsp;} else {
+                        &nbsp; &nbsp; &nbsp; &nbsp;return "evening";
+                        &nbsp; &nbsp;}
+                        }
+                        var name = "Bob";
+                        var str = `Hello ${name}, how are you this fine ${partOfDay()}?`
+                        console.log(str);
+                        // Output: Hello Bob, how are you this fine afternoon?
+                    </pre></code>
+                    Cette façon de faire est rendu standard et est supporté sur les principales navigateur. Excepté pour "Internet Explorer" qui n'est plus supporté par Microsoft.
+                    <span class="comment">Octobre 2016</span><br /><br />
+                </li>
+            </ul>
+        </div>
+        <br class="clear" />
+    </div>
+</div>

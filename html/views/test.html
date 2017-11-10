@@ -1,0 +1,178 @@
+<div data-options="dxView: {name: 'test', title: 'Test + documentation de la librarie'}">
+    <div data-options="dxContent : { targetPlaceholder: 'content' } ">
+        <div class="module">
+            <h4>chart</h4>
+            <div id="test-chart1"></div>
+            <div class="row"><div class="col6">
+                Utiliser chart.js à partir d'un tag vide
+                <code>var chart = new cause.objects.chart({selector: '#test-chart1'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.chart({selector: '#test-chart1'});">Graphique</span>
+            </div></div>
+        </div>
+        <div class="module">
+            <h4>connection</h4>
+            <div class="row"><div class="col6">
+                <code>cause.connection.getIp(function(data) { alert(JSON.stringify(data)); }, true);</code>
+            </div><div class="col6">
+                <span class="button" onclick="cause.connection.getIp(function(data) { alert(JSON.stringify(data)); }, true);">Trouver mon IP</span>
+            </div></div>
+        </div>
+        <div class="module">
+            <h4>editor</h4>
+            <div class="row"><div class="col6">
+                HTML (dépendant de "CodeMirror")
+                <code>var editor = new cause.objects.editor({editor: 'codeMirror', filename: 'views/test.html'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.editor({editor: 'codeMirror', filename: 'views/test.html'});">Édition d'un HTML</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                ODF (dépendant de "wodotexteditor")
+                <code>var editor = new cause.objects.editor({editor: 'wodotexteditor', filename: 'samples/sample.odt'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.editor({editor: 'wodotexteditor', filename: 'samples/sample.odt'});">Édition d'un ODT</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                TXT (aucune dépendance)
+                <code>var editor = new cause.objects.editor({filename: 'samples/sample.txt'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.editor({filename: 'samples/sample.txt'});">Édition d'un TXT</span>
+            </div></div>
+        </div>
+        <div class="module">
+            <h4>maps</h4>
+            <div id="test-maps1"></div>
+            <div class="row"><div class="col6">
+                Google Maps (dépendant de "google maps")
+                <code>var map = new cause.objects.maps({selector: '#test-maps1'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.maps({selector: '#test-maps1'});">Carte google</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                Bing Maps (dépendant de "bing maps")
+                <code>var map = new cause.objects.maps({selector: '#test-maps1', type: 'bing'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.maps({selector: '#test-maps1', type: 'bing'});">Carte bing</span>
+            </div></div>
+        </div>
+        <div class="module">
+            <h4>player</h4>
+            <div id="test-player1"></div>
+            <video id="test-player2" style="display:none;" poster="http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png">
+                <source src="http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v" type="video/mp4" />
+                <source src="http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.ogv" type="video/ogv" />
+                Your browser does not support the video tag.
+            </video>
+            <div class="row"><div class="col6">
+                Utiliser jPlayer à partir d'un tag vide
+                <code>var player = new cause.objects.player({selector: '#test-player1', player: 'jPlayer', title: 'Big Buck Bunny Trailer', media: [
+                    'http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v', 'http://www.jplayer.org/video/ogv/Big_Buck_Bunny_Trailer.ogv'
+                    ], poster: 'http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.player({selector: '#test-player1', player: 'jPlayer', title: 'Big Buck Bunny Trailer', media: [
+                    'http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v', 'http://www.jplayer.org/video/ogv/Big_Buck_Bunny_Trailer.ogv'
+                    ], poster: 'http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png'});">Player</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                Utiliser jPlayer à partir d'un tag vidéo
+                <code>var player = new cause.objects.player({selector: '#test-player2', player: 'jPlayer'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.player({selector: '#test-player2', player: 'jPlayer'});">Player</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                Utiliser le HTML5 à partir d'un tag vidéo
+                <code>var player = new cause.objects.player({selector: '#test-player2'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.player({selector: '#test-player2'});">Player</span>
+            </div></div>
+        </div>
+        <div class="module">
+            <h4>request</h4>
+            <div class="row"><div class="col6">
+                <code>cause.ajax({url: 'http://ip-api.com/json?callback=', success: function(data) { alert(JSON.stringify(data)); }});</code>
+            </div><div class="col6">
+                <span class="button" onclick="cause.ajax({url: 'http://ip-api.com/json?callback=', success: function(data) { alert(JSON.stringify(data)); }});">Envoie d'une requête</span>
+            </div></div>
+        </div>
+        <div class="module">
+            <h4>view</h4>
+            <div class="row"><div class="col6">
+                Image
+                <code>new cause.objects.view('sample.svg');</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.view('samples/sample.svg');">Visualiser une image</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                Audio/Vidéo
+                <code>new cause.objects.view('http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v');</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.view('http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v');">Visualiser un média</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                HTML
+                <code>new cause.objects.view('http://sample.com/');</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.view('http://sample.com/');">Visualiser une page web</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                ODF
+                <code>new cause.objects.view('sample.odp');</code>
+                <code>new cause.objects.view('sample.ods');</code>
+                <code>new cause.objects.view('sample.odt');</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.view('samples/sample.odp');">Visualiser un ODP</span><br /><br />
+                <span class="button" onclick="new cause.objects.view('samples/sample.ods');">Visualiser un ODS</span><br /><br />
+                <span class="button" onclick="new cause.objects.view('samples/sample.odt');">Visualiser un ODT</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                PDF (dépendant de "pdf.js")
+                <code>new cause.objects.view('sample.pdf');</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.view('samples/sample.pdf');">Visualiser un PDF</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                PSD (dépendant de "psd.js")
+                <code>new cause.objects.view('sample.psd');</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.view('samples/sample.psd');">Visualiser un PSD</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                Online viewer
+                <code>new cause.objects.view('sample.docx');</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.view('samples/sample.docx');">Visualiser un WORD</span>
+            </div></div>
+        </div>
+        <div class="module">
+            <h4>window</h4>
+            <div class="row"><div class="col6">
+                <code>cause.window.fullscreen();</code>
+            </div><div class="col6">
+                <span class="button" onclick="cause.window.fullscreen();">Plein écran</span>
+            </div></div>
+        </div>
+        <div class="module">
+            <h4>wysiwyg</h4>
+            <div id="test-wysiwyg1">Test</div>
+            <div class="row"><div class="col6">
+                Custom
+                <code>var editor = new cause.objects.wysiwyg({selector: '#test-wysiwyg1', editor: 'custom'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.wysiwyg({selector: '#test-wysiwyg1', editor: 'custom'});">Édition custom</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                TinyMCE (dépendant de "tinymce")
+                <code>var editor = new cause.objects.wysiwyg({selector: '#test-wysiwyg1'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.wysiwyg({selector: '#test-wysiwyg1'});">Édition avec TinyMCE</span>
+            </div></div>
+            <div class="row"><div class="col6">
+                CKEditor (dépendant de "ckeditor")
+                <code>var editor = new cause.objects.wysiwyg({selector: '#test-wysiwyg1', editor: 'ckeditor'});</code>
+            </div><div class="col6">
+                <span class="button" onclick="new cause.objects.wysiwyg({selector: '#test-wysiwyg1', editor: 'ckeditor'});">Édition avec CKEditor</span>
+            </div></div>
+        </div>
+        <br class="clear" />
+    </div>
+</div>
