@@ -39,8 +39,8 @@ var causeAvailableLanguage = {};
  */
 var cause = {
 	acceptOldBrowser: {},
-    baseUrl: './static/cause/',
-	baseUrlPlugins: '/plugins/',
+    baseUrl: './static/cause-web-content/',
+	baseUrlPlugins: '/static/plugins/',
 	debug: false,
 	escapeKeys: [
 		8 /* Backspace */, 9 /* Tabs */, 13 /* Enter */,
