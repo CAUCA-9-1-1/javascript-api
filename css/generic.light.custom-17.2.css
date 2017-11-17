@@ -4106,7 +4106,7 @@
     border-style: solid;
     background-color: #eee;
     border-color: #ddd;
-    color: #333;
+    color: #b32017;
 }
 .dx-button.dx-state-hover {
     -webkit-box-shadow: 0 1px 3px transparent;
@@ -6464,7 +6464,7 @@
     border-style: solid;
     background-color: #eee;
     border-color: #ddd;
-    color: #333;
+    color: #b32017;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;

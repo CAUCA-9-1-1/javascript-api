@@ -3,6 +3,7 @@
 "themeId": "1",
 "hue": null,
 "items": [{"key":"@base-accent","value":"#b32017"},
+{"key":"@button-normal-color","value":"#b32017"},
 {"key":"@button-normal-bg","value":"#eee"},
 {"key":"@tagbox-tag-bg","value":"#b32017"},
 {"key":"@tagbox-tag-color","value":"#fff"},
