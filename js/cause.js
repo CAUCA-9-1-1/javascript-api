@@ -5333,22 +5333,25 @@ cause.objects.devExtreme15.prototype.loadMinimalJS = function () {
 
 cause.objects.devExtreme15.prototype.loadCSS = function () {
     var version = parseFloat(cause.version.devExtreme);
-
-    cause.include.css([
+    var hasDesktop = document.querySelectorAll('link[href*=DesktopLayout]').length > 0 ? true : false;
+    var files = [
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.html',
-        cause.baseUrl + 'layouts/DesktopLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/css/dx.common.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/css/dx.spa.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Desktop/DesktopLayout.css',
-        cause.baseUrlPlugins + 'fontAwesome/' + cause.version.fontAwesome + '/css/font-awesome.min.css',
-        {href: cause.baseUrl + 'css/generic.light.custom-' + version + '.css', rel: 'dx-theme', 'data-theme': 'generic.light'},
-        cause.baseUrl + 'css/generic.cause.css'
-    ]);
+        cause.baseUrlPlugins + 'fontAwesome/' + cause.version.fontAwesome + '/css/font-awesome.min.css'
+    ];
+
+    if (!hasDesktop) {
+        files.push(cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Desktop/DesktopLayout.html');
+    }
+
+    cause.include.css(files);
 };
 /** Class for helping when we want to use devExtreme 16.
  *
@@ -5399,22 +5402,25 @@ cause.objects.devExtreme16.prototype.loadMinimalJS = function () {
 
 cause.objects.devExtreme16.prototype.loadCSS = function () {
     var version = parseFloat(cause.version.devExtreme);
-
-    cause.include.css([
+    var hasDesktop = document.querySelectorAll('link[href*=DesktopLayout]').length > 0 ? true : false;
+    var files = [
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.html',
-        cause.baseUrl + 'layouts/DesktopLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/css/dx.common.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/css/dx.spa.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Desktop/DesktopLayout.css',
-        cause.baseUrlPlugins + 'fontAwesome/' + cause.version.fontAwesome + '/css/font-awesome.min.css',
-        {href: cause.baseUrl + 'css/generic.light.custom-' + version + '.css', rel: 'dx-theme', 'data-theme': 'generic.light'},
-        cause.baseUrl + 'css/generic.cause.css'
-    ]);
+        cause.baseUrlPlugins + 'fontAwesome/' + cause.version.fontAwesome + '/css/font-awesome.min.css'
+    ];
+
+    if (!hasDesktop) {
+        files.push(cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Desktop/DesktopLayout.html');
+    }
+
+    cause.include.css(files);
 };
 /** Class for helping when we want to use devExtreme 17.
  *
@@ -5465,22 +5471,25 @@ cause.objects.devExtreme17.prototype.loadMinimalJS = function () {
 
 cause.objects.devExtreme17.prototype.loadCSS = function () {
     var version = parseFloat(cause.version.devExtreme);
-
-    cause.include.css([
+    var hasDesktop = document.querySelectorAll('link[href*=DesktopLayout]').length > 0 ? true : false;
+    var files = [
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.html',
-        cause.baseUrl + 'layouts/DesktopLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/css/dx.common.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/css/dx.spa.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Desktop/DesktopLayout.css',
-        cause.baseUrlPlugins + 'fontAwesome/' + cause.version.fontAwesome + '/css/font-awesome.min.css',
-        {href: cause.baseUrl + 'css/generic.light.custom-' + version + '.css', rel: 'dx-theme', 'data-theme': 'generic.light'},
-        cause.baseUrl + 'css/generic.cause.css'
-    ]);
+        cause.baseUrlPlugins + 'fontAwesome/' + cause.version.fontAwesome + '/css/font-awesome.min.css'
+    ];
+
+    if (!hasDesktop) {
+        files.push(cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Desktop/DesktopLayout.html');
+    }
+
+    cause.include.css(files);
 };
 /** Class for helping when we want to use devExtreme.
  *
