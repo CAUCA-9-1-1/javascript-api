@@ -52,8 +52,6 @@ cause.objects.devExtreme17.prototype.loadCSS = function () {
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.html',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.html',
-        cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/css/dx.common.css',
-        cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/css/dx.spa.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.css',
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.css',
