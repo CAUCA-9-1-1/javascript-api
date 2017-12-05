@@ -79,7 +79,8 @@ cause.objects.store.prototype.onLoad = function (loadOptions) {
             url: url,
             method: 'GET',
             headers: (this.options.headers || null),
-            success: this.onLoadedAll.bind(this, deferred, loadOptions)
+            success: this.onLoadedAll.bind(this, deferred, loadOptions),
+            error: this.onError.bind(this, deferred),
         });
     }
 
@@ -102,7 +103,8 @@ cause.objects.store.prototype.onByKey = function (key) {
             url: url + (myApp.config.webservice ? '' : '?id=') + key,
             method: 'GET',
             headers: (this.options.headers || null),
-            success: this.onLoadedByKey.bind(this, deferred)
+            success: this.onLoadedByKey.bind(this, deferred),
+            error: this.onError.bind(this, deferred),
         });
     } else if (this.options.key) {
         return this.find(this.options.key, key);
@@ -220,6 +222,14 @@ cause.objects.store.prototype.setQuery = function (loadOptions) {
     return query;
 };
 
+cause.objects.store.prototype.onError = function (deferred) {
+    deferred.resolve(false);
+
+    if (typeof(this.options.onError) == 'function') {
+        this.options.onError();
+    }
+};
+
 /** Event executed after loading.
  *
  * @param {object} deferred - Callback queue
@@ -248,7 +258,7 @@ cause.objects.store.prototype.onLoadedAll = function (deferred, loadOptions, dat
     }
 
     if (typeof(this.options.onLoaded) == 'function') {
-        this.options.onLoaded(this.data, query.toArray())
+        this.options.onLoaded(this.data, query.toArray());
     }
 };
 
