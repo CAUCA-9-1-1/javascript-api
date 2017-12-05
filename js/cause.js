@@ -2026,10 +2026,19 @@ cause.objects.labels.prototype.replaceTags = function (label) {
 		return label;
 	}
 
+	var version = '';
+	if (myApp && myApp.config && myApp.config.version) {
+		version = (myApp.config.version == '__package_version__' ? 'DEV' : myApp.config.version);
+
+		if (version.substr(0, 1) == 'v') {
+            version = version.substr(1, version.length);
+        }
+	}
+
     var tag = label.match(/{.*}/);
     var replaceBy = {
         '{baseUrl}': cause.baseUrl,
-		'{version}': (myApp && myApp.config && myApp.config.version ? '<span>Version: ' + (myApp.config.version == '__package_version__' ? 'DEV' : myApp.config.version) + '</span>, ' : '')
+		'{version}': (version ? '<span>Version: ' + version + '</span>, ' : '')
     };
 
     if (!replaceBy[tag]) {
