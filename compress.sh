@@ -15,10 +15,3 @@ cat ./js/uncompressed/viewer/*.js >> ./js/cause.js
 # Uglify the compressed file
 cat ./js/cause.js | uglifyjs -o ./js/cause.min.js
 
-# Generate the docs
-if [ "$#" -eq 1 ]; then
-    rm -rf ./docs/*.html
-    jsdoc ./js/cause.js -u ./docs/tutorials -d ./docs -r ./README.md
-else
-    echo "Pass a argument to compile the docs! (./compress docs)"
-fi
