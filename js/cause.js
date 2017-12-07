@@ -6434,11 +6434,11 @@ cause.objects.store.prototype.setQuery = function (loadOptions) {
     return query;
 };
 
-cause.objects.store.prototype.onError = function (deferred) {
+cause.objects.store.prototype.onError = function (deferred, xhr, error) {
     deferred.resolve(false);
 
     if (typeof(this.options.onError) == 'function') {
-        this.options.onError();
+        this.options.onError(xhr, error);
     }
 };
 
