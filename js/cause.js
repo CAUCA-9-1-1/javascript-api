@@ -6226,14 +6226,7 @@ cause.objects.store = function (options) {
     this.setFilter = '';
     this.setSort = '';
 
-    this.dataSource = new DevExpress.data.CustomStore({
-        useDefaultSearch: true,
-        load: this.onLoad.bind(this),
-        byKey: this.onByKey.bind(this),
-        insert: this.onInsert.bind(this),
-        remove: this.onRemove.bind(this),
-        update: this.onUpdate.bind(this)
-    });
+    this.createDataSource();
 
     if (this.options.filter) {
         this.setFilter = this.options.filter;
@@ -6255,7 +6248,20 @@ cause.objects.store.prototype.help = function () {
         'new cause.store();', 'help');
 };
 
+cause.objects.store.prototype.createDataSource = function() {
+    this.dataSource = new DevExpress.data.CustomStore({
+        useDefaultSearch: true,
+        load: this.onLoad.bind(this),
+        byKey: this.onByKey.bind(this),
+        insert: this.onInsert.bind(this),
+        remove: this.onRemove.bind(this),
+        update: this.onUpdate.bind(this)
+    });
+};
+
 cause.objects.store.prototype.getUrl = function () {
+    var basicUrl = (myApp.config && myApp.config.webroot ? myApp.config.webroot : './') + 'ajax/';
+
     if (!this.options.params) {
         return (this.options.url || basicUrl);
     } else if (typeof(this.options.params) == 'string') {
@@ -6280,7 +6286,6 @@ cause.objects.store.prototype.getUrl = function () {
  */
 cause.objects.store.prototype.onLoad = function (loadOptions) {
     var deferred = $.Deferred();
-    var basicUrl = (myApp.config && myApp.config.webroot ? myApp.config.webroot : './') + 'ajax/';
     var url = this.getUrl();
 
     // load data from the remote service
@@ -6306,7 +6311,6 @@ cause.objects.store.prototype.onLoad = function (loadOptions) {
  */
 cause.objects.store.prototype.onByKey = function (key) {
     var deferred = $.Deferred();
-    var basicUrl = (myApp.config && myApp.config.webroot ? myApp.config.webroot : './') + 'ajax/';
     var url = this.getUrl();
     var byKey = (this.options.byKey || false);
 
@@ -6406,10 +6410,9 @@ cause.objects.store.prototype.validateData = function (data) {
 
 cause.objects.store.prototype.setQuery = function (loadOptions) {
     var query = DevExpress.data.query(this.data);
-
-    // Set a filter on data
     var filter = (loadOptions.filter || this.setFilter);
-    if (filter) {
+
+    if (filter && typeof(filter) !== 'function') {
         if (typeof(filter.columnIndex) !== 'undefined' || typeof(filter[0].columnIndex) !== 'undefined') {
             query = query.filter(filter);
         } else if (typeof(filter[0]) == 'object') {
@@ -6529,9 +6532,8 @@ cause.objects.store.prototype.find = function (key, value) {
 cause.objects.store.prototype.load = function (opts) {
     this.options.params = opts;
 
-    if (this.dataSource) {
-        this.dataSource.load();
-    }
+    this.createDataSource();
+    this.dataSource.load();
 };
 
 /** Force to reload the store.
