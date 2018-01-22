@@ -17,19 +17,17 @@ cause.objects.printScreen = function (element, params) {
 		element = document.body;
 	}
 
-	this.name = 'print_screen';
+	this.name = 'printScreen';
 	this.element = element;
 	this.options = cause.extend({}, params);
 
 	/* Initialize the addons "html2canvas" */
-    this.options.onrendered = this.onRendered.bind(this, (params || {}));
-
 	if (!cause.helpIsOn) {
 		if (typeof(html2canvas) == 'object') {
-			html2canvas(this.element, this.options);
+			html2canvas(this.element, this.options).then(this.onRendered.bind(this));
 		} else {
 			cause.include.js(cause.baseUrlPlugins + 'html2canvas/' + cause.version.html2canvas + '/html2canvas.min.js', (function () {
-				html2canvas(this.element, this.options);
+				html2canvas(this.element, this.options).then(this.onRendered.bind(this));
 			}).bind(this), function () {
 				cause.alert(cause.localize('missingPlugins'), 'html2canvas ' + cause.version.html2canvas);
 			});
@@ -37,37 +35,31 @@ cause.objects.printScreen = function (element, params) {
 	}
 };
 
-/** Show help when is cause.help('print_screen') is call.
+/** Show help when is cause.help('printScreen') is call.
  *
  * @memberOf cause.objects.printScreen
  */
 cause.objects.printScreen.prototype.help = function () {
-	cause.log('Aide pour "cause.print_screen":', 'help_title');
-	cause.log("\t" +
-		'new cause.print_screen();', 'help');
+	cause.log('Aide pour "cause.objects.printScreen":', 'help_title');
+	cause.log("\t" + 'new cause.objects.printScreen();', 'help');
 };
 
 /** Executed when the rendering of print screen is finish.
  *
  * @memberOf cause.objects.printScreen
- * @param {object} params: Object with all options pass to addons
  * @param {HTMLElement} canvas: The canvas with the image of screen
  */
-cause.objects.printScreen.prototype.onRendered = function (params, canvas) {
-	if (params.width) {
-		canvas.style.width = params.width + 'px';
-	}
-	if (params.height) {
-		canvas.style.height = params.height + 'px';
-	}
+cause.objects.printScreen.prototype.onRendered = function (canvas) {
+	if (typeof(this.options.onrendered) == 'function') {
+		this.options.onrendered(canvas);
+	} else if (typeof(this.options.success) == 'function') {
+		this.options.success(canvas);
+	} else if (this.options.download) {
+		var name = (typeof(this.options.download) == 'string' ? this.options.download : 'cause_print_screen.png');
 
-	if (typeof(params.onrendered) == 'function') {
-		params.onrendered(canvas);
-	} else if (typeof(params.success) == 'function') {
-		params.success(canvas);
-	} else if (params.download) {
-		cause.$('<a>').attr('href', canvas.toDataURL()).attr('download', 'cause_print_screen.png').get(0).click();
-	} else if (params.insert) {
-		cause.$(canvas).appendTo(params.insert);
+		name += (name.includes('.png') ? '' : '.png');
+		cause.$('<a>').attr('href', canvas.toDataURL()).attr('download', name).get(0).click();
+	} else if (this.options.insert) {
+		cause.$(canvas).appendTo(this.options.insert);
 	}
 };
