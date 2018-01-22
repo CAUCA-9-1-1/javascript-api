@@ -6,136 +6,6 @@
 cause.objects.devExtreme = function () {
     this.name = 'devExtreme';
     this.width = 0;
-    this.datagrid = {
-        createToolbar: function (e) {
-            if (e.element.find('.dx-datagrid-header-panel').length == 0) {
-                e.element.find('.dx-datagrid-headers').prev().replaceWith('<div class="dx-datagrid-header-panel"><div class="dx-toolbar"></div></div>');
-                e.element.find('.dx-datagrid-header-panel .dx-toolbar').dxToolbar({
-                    items: []
-                });
-            }
-        },
-
-        extractData: function (grid, key, fields) {
-            var total = grid.totalCount();
-            var store = new DevExpress.data.ArrayStore({
-                data: [],
-                onUpdated: function (key, values) {
-                    var info = cause.extend({}, key, values);
-
-                    cause.ajax({
-                        url: '//' + myApp.config.webservice.host + '/multilang/',
-                        method: 'POST',
-                        data: info
-                    });
-                }
-            });
-
-            for (var i=0; i<total; i++) {
-                grid.byKey(grid.cellValue(i, key)).done(function (data) {
-                    for (var j=0, k=fields.length; j<k; j++) {
-                        store.insert(data[fields[j]]);
-                    }
-                });
-            }
-
-            return store;
-        },
-
-        languageColumns: function () {
-            var columns = [];
-
-            for (var i=0, j=cause.languages.available.length; i<j; i++) {
-                columns.push({
-                    caption: cause.localize(cause.languages.available[i]),
-                    dataField: cause.languages.available[i]
-                });
-            }
-
-            return columns;
-        },
-
-        addTranslate: function (e, key, fields, callback) {
-            this.createToolbar(e);
-
-            if (!$('.fa.fa-globe', e.element).length) {
-                var toolbar = e.element.find('.dx-datagrid-header-panel .dx-toolbar').dxToolbar('instance');
-                var items = toolbar.option('items');
-                var store = this.extractData(e.component, key, fields);
-                var columns = this.languageColumns();
-
-                items.push({
-                    location: 'after',
-                    widget: 'dxButton',
-                    name: 'print',
-                    options: {
-                        icon: 'fa fa-globe',
-                        onClick: (function (store, columns, callback) {
-                            if ($('#popupTranslate').length) {
-                                $('#popupTranslate').remove();
-                            }
-
-                            $('<div id="popupTranslate">').html('<div class="popupGrid" />').appendTo('body');
-                            $('#popupTranslate').dxPopup({
-                                visible: true,
-                                title: cause.localize('translate'),
-                                toolbarItems: [{
-                                    options: {
-                                        text: cause.localize('cancel'),
-                                        onClick: function() {
-                                            $('#popupTranslate').dxPopup('instance').hide();
-                                        }
-                                    },
-                                    toolbar: 'bottom',
-                                    widget: 'dxButton'
-                                }],
-                                onHidden: function () {
-                                    callback();
-                                },
-                                onShown: function (e) {
-                                    $('div.popupGrid', e.component.content()).dxDataGrid({
-                                        dataSource: store,
-                                        height: (screen.height / 1.7),
-                                        paging: {
-                                            enabled: false
-                                        },
-                                        editing: {
-                                            mode: 'cell',
-                                            allowUpdating: true
-                                        },
-                                        columns: columns
-                                    });
-                                }
-                            });
-                        }).bind(this, store, columns, callback)
-                    }
-                });
-                toolbar.option('items', items);
-            }
-        },
-
-        addPrint: function (e) {
-            this.createToolbar(e);
-
-            if (!$('.fa.fa-print', e.element).length) {
-                var toolbar = e.element.find('.dx-datagrid-header-panel .dx-toolbar').dxToolbar('instance');
-                var items = toolbar.option('items');
-
-                items.push({
-                    location: 'after',
-                    widget: 'dxButton',
-                    name: 'print',
-                    options: {
-                        icon: 'fa fa-print',
-                        onClick: function () {
-                            cause.print(e.element);
-                        }
-                    }
-                });
-                toolbar.option('items', items);
-            }
-        }
-    };
 
     /* Keep this function to keep fonctionnal with first version */
     cause.app = this.app.bind(this);
@@ -364,6 +234,7 @@ cause.objects.devExtreme.prototype.loadDevExtreme = function (files) {
             ], (function (files) {
                 /* And we finish the application files */
                 cause.log('devExtreme layouts is automatically loaded');
+                cause.dxDataGrid = new cause.objects.dxDataGrid();
                 cause.dxMultiLine = new cause.objects.dxMultiLine();
                 cause.dxMultiLang = new cause.objects.dxMultiLang();
                 cause.dxSortable = new cause.objects.dxSortable();
