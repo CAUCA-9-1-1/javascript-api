@@ -12,7 +12,7 @@ cause.objects.dxDataGrid = function () {
             var config = this.option();
 
             if (config.isPrintable !== false) {
-                this._addPrintButton();
+                this._addPrintButton(config.isPrintable);
             }
         },
 
@@ -25,8 +25,14 @@ cause.objects.dxDataGrid = function () {
             }
         },
 
-        _addPrintButton: function() {
+        _addPrintButton: function(startPrint) {
             this._createToolbar();
+
+            if (typeof(startPrint) !== 'function') {
+                startPrint = function (element) {
+                    cause.print(element);
+                }
+            }
 
             if (!$('.fa.fa-print', this._$element).length) {
                 var toolbar = this._$element.find('.dx-datagrid-header-panel .dx-toolbar').dxToolbar('instance');
@@ -38,9 +44,7 @@ cause.objects.dxDataGrid = function () {
                     name: 'print',
                     options: {
                         icon: 'fa fa-print',
-                        onClick: (function (e) {
-                            cause.print(this._$element);
-                        }).bind(this)
+                        onClick: startPrint.bind(this, this._$element)
                     }
                 });
                 toolbar.option('items', items);
