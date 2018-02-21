@@ -5536,17 +5536,14 @@ cause.objects.devExtreme.prototype.app = function (config) {
         cause.log('The application is started');
 
         DevExpress.ui.themes.current(config.theme ? config.theme : 'generic.light');
-
-        if (cause.$('body').width() >= 1000) {
-            DevExpress.devices.current(config.device ? config.device : 'desktop');
-        }
+        DevExpress.devices.current('desktop');
 
         config = cause.extend({}, {
             mode: 'webSite',
             language: (myApp.config ? (myApp.config.language || 'fr') : 'fr'),
             namespace: myApp,    // The application variable absolutely need to be "myApp"
             animationSet: DevExpress.framework.html.animationSets['default'],
-            layoutSet: DevExpress.framework.html.layoutSets[(cause.$('body').width() < 1000 ? 'slideout' : 'desktop')],
+            layoutSet: DevExpress.framework.html.layoutSets['desktop'],
             logout: cause.localize('logout'),
             navigation: [{
                 title: cause.localize('home'),
