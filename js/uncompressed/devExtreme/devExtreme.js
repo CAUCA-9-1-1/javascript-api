@@ -30,11 +30,11 @@ cause.objects.devExtreme.prototype.app = function (config) {
         DevExpress.devices.current('desktop');
 
         config = cause.extend({}, {
-            mode: 'webSite',
+            mode: (cause.$('body').width() >= 1000 ? 'webSite' : 'mobileApp'),
             language: (myApp.config ? (myApp.config.language || 'fr') : 'fr'),
             namespace: myApp,    // The application variable absolutely need to be "myApp"
             animationSet: DevExpress.framework.html.animationSets['default'],
-            layoutSet: DevExpress.framework.html.layoutSets['desktop'],
+            layoutSet: DevExpress.framework.html.layoutSets[cause.$('body').width() >= 1000 ? 'desktop' : 'mobile'],
             logout: cause.localize('logout'),
             navigation: [{
                 title: cause.localize('home'),
@@ -220,15 +220,25 @@ cause.objects.devExtreme.prototype.loadDevExtreme = function (files) {
         /* When we have devExtreme, we can loaded the layouts */
         cause.log('devExtreme is automatically loaded');
 
+        var layouts = [
+            cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.js',
+            cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.js'
+        ];
+
+        if (document.querySelectorAll('link[href*=MobileLayout]').length > 0) {
+            var url = document.querySelectorAll('link[href*=MobileLayout]')[0].href;
+            url = url.replace('.html', '.js');
+            url = url.replace(location.origin, '');
+
+            layouts.push(url);
+        }
+
         cause.include.js([
             cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/js/localization/dx.' + (oldVersion.includes(cause.version.devExtreme) ? 'all' : 'messages') + '.fr.js',
             cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.js',
             cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Desktop/DesktopLayout.js'
         ], (function (files) {
-            cause.include.js([
-                cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/SlideOut/SlideOutLayout.js',
-                cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Popup/PopupLayout.js'
-            ], (function (files) {
+            cause.include.js(layouts, (function (files) {
                 /* And we finish the application files */
                 cause.log('devExtreme layouts is automatically loaded');
                 cause.dxDataGrid = new cause.objects.dxDataGrid();

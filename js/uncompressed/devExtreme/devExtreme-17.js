@@ -46,7 +46,7 @@ cause.objects.devExtreme17.prototype.loadMinimalJS = function () {
 };
 
 cause.objects.devExtreme17.prototype.loadCSS = function () {
-    var version = parseFloat(cause.version.devExtreme);
+    var hasMobile = document.querySelectorAll('link[href*=MobileLayout]').length > 0 ? true : false;
     var hasDesktop = document.querySelectorAll('link[href*=DesktopLayout]').length > 0 ? true : false;
     var files = [
         cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Simple/SimpleLayout.html',
@@ -59,6 +59,13 @@ cause.objects.devExtreme17.prototype.loadCSS = function () {
         cause.baseUrlPlugins + 'fontAwesome/' + cause.version.fontAwesome + '/css/font-awesome.min.css'
     ];
 
+    if (hasMobile) {
+        var url = document.querySelectorAll('link[href*=MobileLayout]')[0].href;
+        url = url.replace('.html', '.css');
+        url = url.replace(location.origin, '');
+
+        files.push(url);
+    }
     if (!hasDesktop) {
         files.push(cause.baseUrlPlugins + 'devExtreme/' + cause.version.devExtreme + '/layouts/Desktop/DesktopLayout.html');
     }
