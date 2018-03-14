@@ -44,7 +44,7 @@ cause.objects.dxMultiLine = function () {
             };
 
             var _onAddingClick = function () {
-                _createFormRow.call(this);
+                _createFormRow.call(this, this.config.newRowValue || null);
             };
 
             var _findRowIndex = function(component) {
@@ -91,7 +91,7 @@ cause.objects.dxMultiLine = function () {
                         _createFormRow.call(this, this.config.value[i]);
                     }
                 } else {
-                    _createFormRow.call(this, null);
+                    _createFormRow.call(this, this.config.newRowValue || null);
                 }
             };
 
@@ -112,7 +112,7 @@ cause.objects.dxMultiLine = function () {
                     var editorOptions = (this.config.items[i].editorOptions || {});
 
                     editorOptions = $.extend(editorOptions, {
-                        value: (values && typeof(values) == 'object' ? values[this.config.items[i].dataField] : (values || '')),
+                        value: _findValue.call(this, i, values),
                         onValueChanged: _onValueChanged.bind(this, i)
                     });
 
@@ -126,6 +126,16 @@ cause.objects.dxMultiLine = function () {
                     icon: 'remove',
                     onClick: _onRemoveClick.bind(this)
                 });
+            };
+
+            var _findValue = function (colIndex, values) {
+                if (values && typeof(values) == 'object') {
+                    if (this.config.items[colIndex].dataField) {
+                        return values[this.config.items[colIndex].dataField] || '';
+                    }
+                }
+
+                return (values || '');
             };
 
             var _createAddingRow = function (items) {
