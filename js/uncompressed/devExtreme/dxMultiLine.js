@@ -28,19 +28,41 @@ cause.objects.dxMultiLine = function () {
             this.config = {};
             this.container = $('<div>');
 
-            var _onRemoveClick = function (rowIndex, e) {
+            var _onRemoveClick = function (e) {
+                var rowIndex = _findRowIndex(e.component);
+
+                this.config.value.splice(rowIndex, 1);
                 e.element.parents('.row').remove();
 
-                _onValueChanged.call(this, rowIndex, 0, {
-                    value: null
-                });
+                if (typeof(this.config.onValueChanged) == 'function') {
+                    this.config.onValueChanged({
+                        element: element,
+                        component: this,
+                        value: this.config.value
+                    });
+                }
             };
 
             var _onAddingClick = function () {
-                _createFormRow.call(this, this.totalRow);
+                _createFormRow.call(this);
             };
 
-            var _onValueChanged = function(rowIndex, colIndex, e) {
+            var _findRowIndex = function(component) {
+                var rowIndex = -1;
+                var row = component.element().parents('.row');
+
+                row.parent('div').find('.row').each(function(index, element) {
+                    if ($(element).attr('data-row') == row.attr('data-row')) {
+                        rowIndex = index;
+                    }
+                });
+
+                return rowIndex;
+            };
+
+            var _onValueChanged = function(colIndex, e) {
+                var rowIndex = _findRowIndex.call(this, e.component);
+
                 if (this.config.items[colIndex].dataField) {
                     if (!this.config.value[rowIndex]) {
                         this.config.value[rowIndex] = {};
@@ -66,23 +88,23 @@ cause.objects.dxMultiLine = function () {
 
                 if (this.config.value.length > 0) {
                     for (var i=0, j=this.config.value.length; i<j; i++) {
-                        _createFormRow.call(this, i, this.config.value[i]);
+                        _createFormRow.call(this, this.config.value[i]);
                     }
                 } else {
-                    _createFormRow.call(this, 0, null);
+                    _createFormRow.call(this, null);
                 }
             };
 
-            var _createFormRow = function (rowIndex, values) {
-                this.totalColumn = 0;
+            var _createFormRow = function (values) {
                 this.totalRow++;
+                this.totalColumn = 0;
 
                 var column = Math.floor(11 / this.config.items.length);
 
                 if (this.container.find('.adding').length) {
-                    var row = $('<div class="row">').insertBefore(this.container.find('.adding'));
+                    var row = $('<div>').addClass('row').attr('data-row', this.totalRow).insertBefore(this.container.find('.adding'));
                 } else {
-                    var row = $('<div class="row">').appendTo(this.container);
+                    var row = $('<div>').addClass('row').attr('data-row', this.totalRow).appendTo(this.container);
                 }
 
                 for (var i=0, j=this.config.items.length; i<j; i++) {
@@ -91,7 +113,7 @@ cause.objects.dxMultiLine = function () {
 
                     editorOptions = $.extend(editorOptions, {
                         value: (values && typeof(values) == 'object' ? values[this.config.items[i].dataField] : (values || '')),
-                        onValueChanged: _onValueChanged.bind(this, rowIndex, i)
+                        onValueChanged: _onValueChanged.bind(this, i)
                     });
 
                     $('<div class="col' + column + '">').appendTo(row)[editorType](editorOptions);
@@ -102,7 +124,7 @@ cause.objects.dxMultiLine = function () {
                 var divColumn = $('<div class="col' + (12 - this.totalColumn) + '">').appendTo(row);
                 $('<div>').appendTo(divColumn).dxButton({
                     icon: 'remove',
-                    onClick: _onRemoveClick.bind(this, rowIndex)
+                    onClick: _onRemoveClick.bind(this)
                 });
             };
 
