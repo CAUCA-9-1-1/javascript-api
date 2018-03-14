@@ -6089,6 +6089,7 @@ cause.objects.dxMultiLine = function () {
 
             var _onRemoveClick = function (e) {
                 var rowIndex = _findRowIndex(e.component);
+                var oldValue = JSON.parse(JSON.stringify(this.config.value));
 
                 this.config.value.splice(rowIndex, 1);
                 e.element.parents('.row').remove();
@@ -6097,7 +6098,8 @@ cause.objects.dxMultiLine = function () {
                     this.config.onValueChanged({
                         element: element,
                         component: this,
-                        value: this.config.value
+                        value: this.config.value,
+                        previousValue: oldValue
                     });
                 }
             };
@@ -6121,6 +6123,7 @@ cause.objects.dxMultiLine = function () {
 
             var _onValueChanged = function(colIndex, e) {
                 var rowIndex = _findRowIndex.call(this, e.component);
+                var oldValue = JSON.parse(JSON.stringify(this.config.value));
 
                 if (this.config.items[colIndex].dataField) {
                     if (!this.config.value[rowIndex]) {
@@ -6136,7 +6139,8 @@ cause.objects.dxMultiLine = function () {
                     this.config.onValueChanged({
                         element: element,
                         component: this,
-                        value: this.config.value
+                        value: this.config.value,
+                        previousValue: oldValue
                     });
                 }
             };
