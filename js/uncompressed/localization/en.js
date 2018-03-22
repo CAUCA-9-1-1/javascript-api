@@ -4,6 +4,7 @@ causeAvailableLanguage.en = {
     'changePassword': 'Change my password',
     'confirmChangedPassword': 'Your password has been changed, please log in again',
     'confirmPassword': 'Password confirmation',
+    'changePasswordError': 'An error error occurred during changing password, so your old password is still in place',
     'copyright': '{version}All rights reserved © CAUCA',
     'email': 'Email',
     'emailSendWindowBlock': 'The email window appears to have been blocked at the opening!<br /><br />Please allow it to open in your browser<br />Or <a>click here</a>',

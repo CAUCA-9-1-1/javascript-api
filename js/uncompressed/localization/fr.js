@@ -4,6 +4,7 @@ causeAvailableLanguage.fr = {
     'changePassword': 'Modifier mon mot de passe',
     'confirmChangedPassword': 'Votre mot de passe à été modifié, veuillez-vous connecter à nouveau',
     'confirmPassword': 'Confirmation du mot de passe',
+    'changePasswordError': 'Une erreur est survenue durant le changement de mot de passe, donc votre ancien mot de passe est toujours en place',
     'copyright': '{version}Tous droits réservés © CAUCA',
     'email': 'Courriel',
     'emailSendWindowBlock': 'La fenêtre de courriel semble avoir été bloqué à l\'ouverture!<br /><br />Veuillez permettre à celle-ci de s\'ouvrir dans votre navigateur.<br />Ou <a>cliquez ici</a>',
