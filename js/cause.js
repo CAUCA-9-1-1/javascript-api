@@ -2653,7 +2653,7 @@ cause.menu = {
 
             if (myApp.config.user && myApp.config.user.first_name) {
                 var name = myApp.config.user.first_name + ' ' + myApp.config.user.last_name;
-                $('<a>').html(name.capitalize(true)).appendTo(menu);
+                $('<a>').html(name).appendTo(menu);
             }
 
             $('<a>').attr({
