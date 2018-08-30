@@ -3278,7 +3278,7 @@ cause.objects.request.prototype.onComplete = function (params, xhr, status) {
  * @param {object} xhr - Object of request
  */
 cause.objects.request.prototype.onSuccess = function (params, data, status, xhr) {
-    var json_is_detected = (typeof(data) == 'object' && typeof(data.success) == 'boolean');
+    var json_is_detected = (data && typeof(data) == 'object' && typeof(data.success) == 'boolean');
 
     if (params.dataType === 'json' || json_is_detected) {
         if (typeof(data.login) != 'undefined' && !data.login && myApp.config) {
