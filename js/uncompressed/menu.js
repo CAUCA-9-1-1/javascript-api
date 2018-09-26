@@ -17,14 +17,14 @@ cause.menu = {
 	logout: function () {
         var html = $('<div>');
 
-	    if (myApp.config && myApp.config.webroot) {
+	    if (myApp.config && myApp.config.webroot && myApp.config.user && typeof(myApp.config.user) === 'object') {
             $('<div>').attr({
                 'class': 'fa fa-user-circle'
             }).appendTo(html);
 
             var menu = $('<div>').addClass('submenu').appendTo(html);
 
-            if (myApp.config.user && myApp.config.user.first_name) {
+            if (myApp.config.user.first_name) {
                 var name = myApp.config.user.first_name + ' ' + myApp.config.user.last_name;
                 $('<a>').html(name).appendTo(menu);
             }
@@ -36,6 +36,10 @@ cause.menu = {
             $('<a>').attr({
                 href: myApp.config.webroot + '?action=logout'
             }).html(cause.localize('logout')).appendTo(menu);
+        } else if (myApp.config.webroot) {
+	        $('<a>').attr({
+                href: myApp.config.webroot + '?action=logout'
+            }).html(cause.localize('logout')).appendTo(html);
         } else {
             $('<a>').attr({
                 href: './login/?logout'
