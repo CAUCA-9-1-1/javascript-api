@@ -9092,6 +9092,10 @@ cause.objects.view.prototype.loaded = function () {
 				cause.$('#cause-view .toolbar .fa-fast-forward').removeAttr('disabled');
 			}
 		}
+
+		if (typeof(this.doc.print) === 'function') {
+				cause.$('#cause-view .toolbar .fa-print').removeAttr('disabled');
+			}
 	} else {
 		this.hide();
 
@@ -9138,6 +9142,12 @@ cause.objects.view.prototype.goTo = function (nb) {
 	}
 };
 
+cause.objects.view.prototype.print = function () {
+	if (this.doc && typeof(this.doc.print) == 'function') {
+		this.doc.print();
+	}
+};
+
 /** Hide the viewer.
  *
  * @memberOf cause.objects.view
@@ -9155,7 +9165,8 @@ cause.objects.view.prototype.show = function () {
 	var hasCustom = (this.listeners && typeof(this.listeners) == 'object' ? true : false);
 	var page = '<i class="fa fa-fast-backward" aria-hidden="true" disabled="disabled"></i><i class="fa fa-step-backward" aria-hidden="true" disabled="disabled"></i>' +
 		'<span class="page" disabled="disabled">1 / 1</span>' +
-		'<i class="fa fa-step-forward" aria-hidden="true" disabled="disabled"></i><i class="fa fa-fast-forward" aria-hidden="true" disabled="disabled"></i>';
+		'<i class="fa fa-step-forward" aria-hidden="true" disabled="disabled"></i><i class="fa fa-fast-forward" aria-hidden="true" disabled="disabled"></i>' +
+		'<i class="fa fa-print" aria-hidden="true" disabled="disabled"></i>';
 
 	if (elm.length > 0) {
 		return null;
@@ -9173,6 +9184,7 @@ cause.objects.view.prototype.show = function () {
 	elm.find('.fa-step-backward').click(this.prev.bind(this));
 	elm.find('.fa-step-forward').click(this.next.bind(this));
 	elm.find('.fa-fast-forward').click(this.goTo.bind(this, 0));
+	elm.find('.fa-print').click(this.print.bind(this, 0));
 
 	if (hasCustom) {
 		for (var action in this.listeners) {
@@ -9432,7 +9444,7 @@ cause.objects.viewPdf = function (filename, callback) {
 	this.pagetotal = 1;
 	this.supported = ['pdf'];
 
-	if (typeof(PDFJS) == 'object') {
+	if (typeof(PDFJS) == 'object' || typeof(pdfjsLib) == 'object') {
 		this.init();
 	} else {
 		cause.include.js([
@@ -9452,7 +9464,11 @@ cause.objects.viewPdf.prototype.init = function () {
 	this.name = (this.filename.includes('/') ? this.filename.substr(this.filename.lastIndexOf('/') + 1) : (this.filename.includes('://') ? '' : this.filename));
 	this.ext = (this.name.includes('.') ? this.name.substr(this.name.lastIndexOf('.') + 1) : '');
 
-	PDFJS.getDocument(this.filename).then(this.opendoc.bind(this));
+	if (typeof(pdfjsLib) == 'object') {
+		pdfjsLib.getDocument(this.filename).then(this.opendoc.bind(this));
+	} else {
+		PDFJS.getDocument(this.filename).then(this.opendoc.bind(this));
+	}
 };
 
 /** Document is loaded.
@@ -9537,6 +9553,16 @@ cause.objects.viewPdf.prototype.goTo = function (nb) {
 	}
 
 	this.show();
+};
+
+cause.objects.viewPdf.prototype.print = function () {
+	document.styleSheets[3].cssRules[79].cssRules[0].style.size="portrait";
+
+	cause.print(cause.$("#cause-view canvas").get(0));
+
+	setTimeout(function(){
+		document.styleSheets[3].cssRules[79].cssRules[0].style.size="landscape"
+	},1000);
 };/** Class for helping when we process to view a PSD.
  *
  * @constructor

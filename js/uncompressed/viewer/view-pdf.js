@@ -15,7 +15,7 @@ cause.objects.viewPdf = function (filename, callback) {
 	this.pagetotal = 1;
 	this.supported = ['pdf'];
 
-	if (typeof(PDFJS) == 'object') {
+	if (typeof(PDFJS) == 'object' || typeof(pdfjsLib) == 'object') {
 		this.init();
 	} else {
 		cause.include.js([
@@ -35,7 +35,11 @@ cause.objects.viewPdf.prototype.init = function () {
 	this.name = (this.filename.includes('/') ? this.filename.substr(this.filename.lastIndexOf('/') + 1) : (this.filename.includes('://') ? '' : this.filename));
 	this.ext = (this.name.includes('.') ? this.name.substr(this.name.lastIndexOf('.') + 1) : '');
 
-	PDFJS.getDocument(this.filename).then(this.opendoc.bind(this));
+	if (typeof(pdfjsLib) == 'object') {
+		pdfjsLib.getDocument(this.filename).then(this.opendoc.bind(this));
+	} else {
+		PDFJS.getDocument(this.filename).then(this.opendoc.bind(this));
+	}
 };
 
 /** Document is loaded.
@@ -120,4 +124,14 @@ cause.objects.viewPdf.prototype.goTo = function (nb) {
 	}
 
 	this.show();
+};
+
+cause.objects.viewPdf.prototype.print = function () {
+	document.styleSheets[3].cssRules[79].cssRules[0].style.size="portrait";
+
+	cause.print(cause.$("#cause-view canvas").get(0));
+
+	setTimeout(function(){
+		document.styleSheets[3].cssRules[79].cssRules[0].style.size="landscape"
+	},1000);
 };

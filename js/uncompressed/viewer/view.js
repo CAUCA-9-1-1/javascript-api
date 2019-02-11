@@ -102,6 +102,10 @@ cause.objects.view.prototype.loaded = function () {
 				cause.$('#cause-view .toolbar .fa-fast-forward').removeAttr('disabled');
 			}
 		}
+
+		if (typeof(this.doc.print) === 'function') {
+				cause.$('#cause-view .toolbar .fa-print').removeAttr('disabled');
+			}
 	} else {
 		this.hide();
 
@@ -148,6 +152,12 @@ cause.objects.view.prototype.goTo = function (nb) {
 	}
 };
 
+cause.objects.view.prototype.print = function () {
+	if (this.doc && typeof(this.doc.print) == 'function') {
+		this.doc.print();
+	}
+};
+
 /** Hide the viewer.
  *
  * @memberOf cause.objects.view
@@ -165,7 +175,8 @@ cause.objects.view.prototype.show = function () {
 	var hasCustom = (this.listeners && typeof(this.listeners) == 'object' ? true : false);
 	var page = '<i class="fa fa-fast-backward" aria-hidden="true" disabled="disabled"></i><i class="fa fa-step-backward" aria-hidden="true" disabled="disabled"></i>' +
 		'<span class="page" disabled="disabled">1 / 1</span>' +
-		'<i class="fa fa-step-forward" aria-hidden="true" disabled="disabled"></i><i class="fa fa-fast-forward" aria-hidden="true" disabled="disabled"></i>';
+		'<i class="fa fa-step-forward" aria-hidden="true" disabled="disabled"></i><i class="fa fa-fast-forward" aria-hidden="true" disabled="disabled"></i>' +
+		'<i class="fa fa-print" aria-hidden="true" disabled="disabled"></i>';
 
 	if (elm.length > 0) {
 		return null;
@@ -183,6 +194,7 @@ cause.objects.view.prototype.show = function () {
 	elm.find('.fa-step-backward').click(this.prev.bind(this));
 	elm.find('.fa-step-forward').click(this.next.bind(this));
 	elm.find('.fa-fast-forward').click(this.goTo.bind(this, 0));
+	elm.find('.fa-print').click(this.print.bind(this, 0));
 
 	if (hasCustom) {
 		for (var action in this.listeners) {
