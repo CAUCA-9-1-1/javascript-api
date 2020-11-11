@@ -168,10 +168,6 @@ cause.objects.console.prototype.detectWithPrintingImage = function () {
         this.open = false;
     }).bind(this), (this.time * 800));
 
-    if (!cause.helpIsOn) {
-        console.log('Log image to test devtools', this.image);
-    }
-
     if (this.block && !cause.debug && typeof(console.clear) === 'function') {
         console.clear();
     }
