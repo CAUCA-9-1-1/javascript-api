@@ -62,9 +62,9 @@ var cause = {
 
 		/* Could be redefined if it's included inside HTML */
         cldrjs: '0.4.8',
-		devExtreme: '17.1.8',
+		devExtreme: '18.1.3',
 		jQuery: '3.7.1',
-		knockout: '3.4.0',			// Use DevExtreme version
+		knockout: 'latest',			// Use DevExtreme version
 
 		/* Automatically detected */
 		js: '',							// JavaScript version
