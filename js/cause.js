@@ -76,7 +76,7 @@ var cause = {
         fontAwesome: '4.7.0',			// Font icon
         googleMaps: '3',				// Maps
         jPlayer: '2.9.2',				// Video player
-		jsZip: '3.1.2',					// Zip generator
+		jsZip: '3.10.1',					// Zip generator
 		html2canvas: '1.0.0',			// Image generator
 		pdfjs: '1.6.210',				// PDF viewer
         psdjs: '3.1.0',					// PSD viewer
